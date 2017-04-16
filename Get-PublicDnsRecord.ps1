@@ -19,7 +19,6 @@ Function Get-PublicDnsRecord{
     #>
     Param(
         [Parameter(Mandatory=$true,Position=1)]
-        #[ValidateScript({[System.Net.Dns]::GetHostAddresses("$_")})]
         [String]$DomainName,
 
         [Parameter(Mandatory=$true,Position=2)]
