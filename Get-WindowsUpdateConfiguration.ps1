@@ -231,12 +231,12 @@
                 }
             }
             else{
-                $AcceptTrustedPublisherCerts = $DisableWindowsUpdateAccess = $ElevateNonAdmins = $TargetGroup = $TargetGroupEnabled = $WUServer = $WUStatusServer = $AUOptions = $AutoInstallMinorUpdates = $DetectionFrequency = $DetectionFrequencyEnabled = $NoAutoRebootWithLoggedOnUsers = $NoAutoUpdate = $RebootRelaunchTimeout = $RebootRelaunchTimeoutEnabled = $RebootWarningTimeout = $RebootWarningTimeoutEnabled = $RescheduleWaitTime = $RescheduleWaitTimeEnabled = $ScheduledInstallDay = $ScheduledInstallTime = $UseWUServer = 'Offline'
+                $AcceptTrustedPublisherCerts = $DisableWindowsUpdateAccess = $ElevateNonAdmins = $TargetGroup = $TargetGroupEnabled = $WUServer = $WUStatusServer = $AUOptions = $AutoInstallMinorUpdates = $AUAutoInstallMinorUpdatesOptions = $DetectionFrequency = $DetectionFrequencyEnabled = $NoAutoRebootWithLoggedOnUsers = $NoAutoUpdate = $RebootRelaunchTimeout = $RebootRelaunchTimeoutEnabled = $RebootWarningTimeout = $RebootWarningTimeoutEnabled = $RescheduleWaitTime = $RescheduleWaitTimeEnabled = $ScheduledInstallDay = $ScheduledInstallTime = $UseWUServer = 'Offline'
             }
         }#end try inside process
         catch{
             Write-Warning -Message "$ComputerName : $_"
-            $AcceptTrustedPublisherCerts = $DisableWindowsUpdateAccess = $ElevateNonAdmins = $TargetGroup = $TargetGroupEnabled = $WUServer = $WUStatusServer = $AUOptions = $AutoInstallMinorUpdates = $DetectionFrequency = $DetectionFrequencyEnabled = $NoAutoRebootWithLoggedOnUsers = $NoAutoUpdate = $RebootRelaunchTimeout = $RebootRelaunchTimeoutEnabled = $RebootWarningTimeout = $RebootWarningTimeoutEnabled = $RescheduleWaitTime = $RescheduleWaitTimeEnabled = $ScheduledInstallDay = $ScheduledInstallTime = $UseWUServer = $_
+            $AcceptTrustedPublisherCerts = $DisableWindowsUpdateAccess = $ElevateNonAdmins = $TargetGroup = $TargetGroupEnabled = $WUServer = $WUStatusServer = $AUOptions = $AutoInstallMinorUpdates = $AUAutoInstallMinorUpdatesOptions = $DetectionFrequency = $DetectionFrequencyEnabled = $NoAutoRebootWithLoggedOnUsers = $NoAutoUpdate = $RebootRelaunchTimeout = $RebootRelaunchTimeoutEnabled = $RebootWarningTimeout = $RebootWarningTimeoutEnabled = $RescheduleWaitTime = $RescheduleWaitTimeEnabled = $ScheduledInstallDay = $ScheduledInstallTime = $UseWUServer = $_
         }
         finally{
             New-Object -TypeName PSObject -Property @{
@@ -267,7 +267,7 @@
                 UseWUServer                      = $UseWUServer
             }
             #Reset Variables
-            $AcceptTrustedPublisherCerts = $DisableWindowsUpdateAccess = $ElevateNonAdmins = $TargetGroup = $TargetGroupEnabled = $WUServer = $WUStatusServer = $AUOptions = $AutoInstallMinorUpdates = $DetectionFrequency = $DetectionFrequencyEnabled = $NoAutoRebootWithLoggedOnUsers = $NoAutoUpdate = $RebootRelaunchTimeout = $RebootRelaunchTimeoutEnabled = $RebootWarningTimeout = $RebootWarningTimeoutEnabled = $RescheduleWaitTime = $RescheduleWaitTimeEnabled = $ScheduledInstallDay = $ScheduledInstallTime = $UseWUServer = $null
+            $AcceptTrustedPublisherCerts = $DisableWindowsUpdateAccess = $ElevateNonAdmins = $TargetGroup = $TargetGroupEnabled = $WUServer = $WUStatusServer = $AUOptions = $AutoInstallMinorUpdates = $AUAutoInstallMinorUpdatesOptions = $DetectionFrequency = $DetectionFrequencyEnabled = $NoAutoRebootWithLoggedOnUsers = $NoAutoUpdate = $RebootRelaunchTimeout = $RebootRelaunchTimeoutEnabled = $RebootWarningTimeout = $RebootWarningTimeoutEnabled = $RescheduleWaitTime = $RescheduleWaitTimeEnabled = $ScheduledInstallDay = $ScheduledInstallTime = $UseWUServer = $null
         }
     }#EndProcess
     End{}
