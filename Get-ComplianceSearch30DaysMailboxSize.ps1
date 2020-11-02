@@ -2,15 +2,43 @@
 [CmdletBinding()]
 Param(
     [Parameter(
-        Mandatory = $true)
+        Mandatory = $false)
     ]
-    $MailboxesToSearchIn = ('junk@itfordummies.net','toto@itfordummies.net')
+    $MailboxesToSearchIn
 )
+
+#region functions
+Function Show-FilePicker{
+    Param(
+        [String]$InitialDirectory = $pwd,
+        [String]$Title = 'Select the CSV file'
+    )
+
+    [System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms') | Out-Null
+
+    $OpenFileDialog = New-Object -TypeName System.Windows.Forms.OpenFileDialog
+    $OpenFileDialog.Title = $Title
+    $OpenFileDialog.initialDirectory = $initialDirectory
+    $OpenFileDialog.filter = 'All files (*.txt)| *.txt'
+    $OpenFileDialog.ShowDialog() | Out-Null
+    #return
+    $OpenFileDialog.filename
+}
+#endregion
+
+#input
+if(!$MailboxesToSearchIn){
+    $InputFile = Show-FilePicker
+    $MailboxesToSearchIn = Get-Content -Path $InputFile
+}
 
 #region Prereqs
 #Exchange Online Connection, can beinstalled with:
 #Install-Module -Name ExchangeOnlineManagement -Scope CurrentUser
-Connect-IPPSSession
+try{
+    Get-Command New-ComplianceSearch -ErrorAction Stop | Out-Null
+}
+catch{Connect-IPPSSession}
 #endregion
 
 #region Init
@@ -24,7 +52,7 @@ $ContentMatchQuery = "(sent=$StartDate..$EndDate)(received=$StartDate..$EndDate)
 #endregion
 
 #Create compliance search
-New-ComplianceSearch -ExchangeLocation $MailboxesToSearchIn -ContentMatchQuery $ContentMatchQuery -Name $ComplianceSearchName
+New-ComplianceSearch -ExchangeLocation $MailboxesToSearchIn -ContentMatchQuery $ContentMatchQuery -Name $ComplianceSearchName | Out-Null
 
 #Trigger search
 Get-ComplianceSearch -Identity $ComplianceSearchName | Start-ComplianceSearch
