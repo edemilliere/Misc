@@ -36,7 +36,7 @@ if(!$MailboxesToSearchIn){
 #Exchange Online Connection, can beinstalled with:
 #Install-Module -Name ExchangeOnlineManagement -Scope CurrentUser
 try{
-    Get-Command New-ComplianceSearch -ErrorAction Stop | Out-Null
+    Get-ComplianceSearch -ErrorAction Stop | Out-Null
 }
 catch{Connect-IPPSSession}
 #endregion
