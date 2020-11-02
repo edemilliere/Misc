@@ -16,7 +16,7 @@ Connect-IPPSSession
 #region Init
 [Regex]$Regex = "Location:\s(?<Identity>\w+@\w+.\w+),\sItem\scount:\s(?<ItemCount>\w+),\sTotal\ssize:\s(?<TotalSize>\w+)"
 
-$ComplianceSearchName = "30Days - $(Get-Date)"
+$ComplianceSearchName = "30Days - $(Get-Date -Format 'yyyyMMdd-HHmm')"
 
 $StartDate = (Get-Date).AddDays(-30).ToString("MM-dd-yyyy")
 $EndDate = (Get-Date).ToString("MM-dd-yyyy")
@@ -45,7 +45,7 @@ $RegexMatchingResult | ForEach-Object -Process {
         ItemCount = $_.Groups['ItemCount'].Value        
         TotalSizeinMB = $_.Groups['TotalSize'].Value/1MB -as [int]
     }
-} | Export-Csv -NoTypeInformation -Delimiter ';' "30DaysOfEmailCalculatedFromComplianceSearch-$(Get-Date).csv"
+} | Export-Csv -NoTypeInformation -Delimiter ';' "30DaysOfEmailCalculatedFromComplianceSearch-$(Get-Date -Format 'yyyyMMdd-HHmm').csv"
 
 #Cleanup
 Get-ComplianceSearch -Identity $ComplianceSearchName | Remove-ComplianceSearch -Confirm:$false
