@@ -33,7 +33,10 @@ if(!$Mailboxes){
 
 #Exchange Online Connection, can beinstalled with:
 #Install-Module -Name ExchangeOnlineManagement -Scope CurrentUser
-Connect-ExchangeOnline
+try{
+    Get-Command Get-MailboxFolderStatistics -ErrorAction Stop | Out-Null
+}
+catch{Connect-ExchangeOnline}
 
 #Main loop
 $Output = foreach($Mailbox in $Mailboxes){
