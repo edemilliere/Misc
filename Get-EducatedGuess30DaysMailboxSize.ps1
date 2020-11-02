@@ -1,8 +1,35 @@
 ﻿#requires -modules ExchangeOnlineManagement
+[CmdletBinding()]
+Param(
+    [Parameter(
+        Mandatory = $false)
+    ]
+    $Mailboxes
+)
+#region functions
+Function Show-FilePicker{
+    Param(
+        [String]$InitialDirectory = $pwd,
+        [String]$Title = 'Select the CSV file'
+    )
 
-#Can be one or the other
-$Mailboxes = 'junk@itfordummies.net','dumbo@itfordummies.net'
-#$Mailboxes = Get-Content MailboxesList.txt
+    [System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms') | Out-Null
+
+    $OpenFileDialog = New-Object -TypeName System.Windows.Forms.OpenFileDialog
+    $OpenFileDialog.Title = $Title
+    $OpenFileDialog.initialDirectory = $initialDirectory
+    $OpenFileDialog.filter = 'All files (*.txt)| *.txt'
+    $OpenFileDialog.ShowDialog() | Out-Null
+    #return
+    $OpenFileDialog.filename
+}
+#endregion
+
+#input
+if(!$Mailboxes){
+    $InputFile = Show-FilePicker
+    $Mailboxes = Get-Content -Path $InputFile
+}
 
 #Exchange Online Connection, can beinstalled with:
 #Install-Module -Name ExchangeOnlineManagement -Scope CurrentUser
@@ -28,4 +55,4 @@ $Output = foreach($Mailbox in $Mailboxes){
     $OldestItem = $TotalSizeInMb = $AgeInDays = $DailyaverageInMB = $null
 }
 
-$Output | Export-Csv -NoTypeInformation -Delimiter ';' 30DaysOfEmailCalculatedFromTotalSizeAndLifeTimeAverage.csv
+$Output | Export-Csv -NoTypeInformation -Delimiter ';' "30DaysOfEmailCalculatedFromTotalSizeAndLifeTimeAverage-$(Get-Date -Format 'yyyyMMdd-HHmm').csv"
