@@ -48,6 +48,7 @@ $Output = foreach($Mailbox in $Mailboxes){
     
     [PSCustomObject]@{
         Identity = $Mailbox
+        RecipientType = Get-Recipient -Identity $Mailbox | Select-Object -ExpandProperty RecipientTypeDetails
         OldestItem = $OldestItem
         TotalSizeInMB = $TotalSizeInMb
         AgeInDays = $AgeInDays
